@@ -1,4 +1,3 @@
-
 def get_first_significant_digit(num):
     # Convert the number to a string
     num_str = str(num)
@@ -25,7 +24,7 @@ def benfords_law(nums):
     
     # Normalize the actual frequencies to get the actual frequency percentages
     total_count = len(nums)
-    actual_freq_percs = {digit: actual_freqs[digit] / total_count for digit in actual_freqs}
+    actual_freq_percs = {digit: round(actual_freqs[digit] / total_count, 3) for digit in actual_freqs}
     
     # Return a dictionary with the expected and actual frequency percentages of the first significant digits
     return {'expected': expected_freqs, 'actual': actual_freq_percs}
