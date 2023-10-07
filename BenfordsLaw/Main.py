@@ -1,6 +1,8 @@
 from Sequences import fibonacci, collatz
 from AnalysisBenfordsLaw import benfords_law as bl
+from Display import plot_dataframe  
 import pandas as pd
+import sys
 
 n_fib = 50
 
@@ -10,7 +12,9 @@ print("First " + str(n_fib) + " Fibonacci numbers: " + (str(fib)[1:-1] if len(fi
 bl_fib = bl(fib)
 df = pd.DataFrame({'expected': bl_fib['expected'], 'actual': bl_fib['actual']})
 print(df)
+plot_dataframe(df)
 
+"""
 n_collatz = 1324354657687980
 
 coll = collatz(n_collatz)
@@ -19,3 +23,4 @@ print("Collatz sequence from " + str(n_collatz) + " (len: " + str(len(coll)) + "
 bl_coll = bl(coll)
 df = pd.DataFrame({'expected': bl_coll['expected'], 'actual': bl_coll['actual']})
 print(df)
+"""

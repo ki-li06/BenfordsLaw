@@ -19,3 +19,4 @@ def collatz(n):
         sequence.append(n)
     return sequence
 
+print("Sequences.py loaded")

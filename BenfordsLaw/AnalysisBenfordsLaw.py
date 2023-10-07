@@ -29,3 +29,4 @@ def benfords_law(nums):
     # Return a dictionary with the expected and actual frequency percentages of the first significant digits
     return {'expected': expected_freqs, 'actual': actual_freq_percs}
 
+print("AnalysisBenfordsLaw.py loaded")
