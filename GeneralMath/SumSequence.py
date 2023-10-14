@@ -24,17 +24,15 @@ def sigma_sequence_summation(function, start, end, print_dataframe):
         print(pd.DataFrame(data).to_string(index=False))
     return result
 
-d2 = 0
-
-def fct_fx(x):
-    result = log10(1+(1/(10*x + d2)))
+def get_as_digits(list_digits):
+    """
+    Converts a list of digits to a number.
+    :param list_digits: a list of digits
+    :return: the number represented by the list of digits
+    """
+    result = 0
+    for i in range(len(list_digits)):
+        result += list_digits[i] * 10 ** (len(list_digits) - i - 1)
     return result
 
-
-start = 1
-end = 9
-result = sigma_sequence_summation(fct_fx, start, end, True)
-result = round(result, round_to)
-print("function: f(x) = log10(1+(1/(10x + " + str(d2) + ")))")
-print("sum from i =", start, "to", end, "of f(i)")
-print("result  :", result)
+print("SumSequence.py loaded")
