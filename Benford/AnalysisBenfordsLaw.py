@@ -1,5 +1,9 @@
 from math import log10
-from  GeneralMath.SumSequence import get_as_digits
+
+import sys
+
+sys.path.append('GeneralMath')
+from SumSequence import get_as_digits
 
 
 def get_first_significant_digit(num):
@@ -35,15 +39,29 @@ def benfords_law_dataset(nums: list):
     # Return a dictionary with the expected and actual frequency percentages of the first significant digits
     return {'expected': expected_freqs, 'actual': actual_freq_percs}
 
-def prob_n(list_d: list):
-    #Returns the probabilty that a number will start with the digits in list_d
-    number = get_as_digits(list_d)
+   
+def prob_n(n):
+    #Returns the probabilty that a number will start with n/the digits in n
+    number = n
+    if(type(n) != int):
+        number = get_as_digits(n)
+    if(number == 0):
+        return -1
     return log10(1+(1/(number)))
 
 def prob_d_i(d: int, index: int):
     #return the probabilty that number d is the index's digit
-    listnumbers = range(10**(index-1), 10**index)
-    print(listnumbers)
-    return -1
+    index = index-1
+    #print("index(zerod):", index)
+    if(index == 0):
+        return prob_n(d)
+    listnumbers = [i*10 + d for i in range(10**(index-1), 10**index)]
+    print("listnumbers:", listnumbers)
+
+    sum = 0
+    for i in listnumbers:
+        n = d + i*10
+        sum += prob_n(i)
+    return sum
 
 print("AnalysisBenfordsLaw.py loaded")

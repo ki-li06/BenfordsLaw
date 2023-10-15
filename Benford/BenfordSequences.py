@@ -56,4 +56,4 @@ def get_primes(n):
     return primes
 
 
-print("Sequences.py loaded")
+print("BenfordSequences.py loaded")
