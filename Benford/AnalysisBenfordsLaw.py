@@ -14,7 +14,7 @@ def get_first_significant_digit(num):
     # If we haven't found a non-zero digit, return 0
     return 0
 
-def benfords_law(nums):
+def benfords_law_dataset(nums: list):
     # Define the expected frequencies of the first significant digits according to Benford's Law
     expected_freqs = {1: 0.301, 2: 0.176, 3: 0.125, 4: 0.097, 5: 0.079, 6: 0.067, 7: 0.058, 8: 0.051, 9: 0.046}
 
@@ -35,9 +35,15 @@ def benfords_law(nums):
     # Return a dictionary with the expected and actual frequency percentages of the first significant digits
     return {'expected': expected_freqs, 'actual': actual_freq_percs}
 
-def prob(list_d):
+def prob_n(list_d: list):
     #Returns the probabilty that a number will start with the digits in list_d
     number = get_as_digits(list_d)
     return log10(1+(1/(number)))
+
+def prob_d_i(d: int, index: int):
+    #return the probabilty that number d is the index's digit
+    listnumbers = range(10**(index-1), 10**index)
+    print(listnumbers)
+    return -1
 
 print("AnalysisBenfordsLaw.py loaded")
