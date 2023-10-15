@@ -46,7 +46,7 @@ def prob_n(n):
     if(type(n) != int):
         number = get_as_digits(n)
     if(number == 0):
-        return -1
+        return 0
     return log10(1+(1/(number)))
 
 def prob_d_i(d: int, index: int):
@@ -56,7 +56,7 @@ def prob_d_i(d: int, index: int):
     if(index == 0):
         return prob_n(d)
     listnumbers = [i*10 + d for i in range(10**(index-1), 10**index)]
-    print("listnumbers:", listnumbers)
+    #print("listnumbers:", listnumbers)
 
     sum = 0
     for i in listnumbers:
