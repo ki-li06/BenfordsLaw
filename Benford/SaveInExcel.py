@@ -1,3 +1,4 @@
+import math
 from openpyxl import Workbook
 from AnalysisBenfordsLaw import prob_d_i as prob_d_i
 
@@ -8,7 +9,9 @@ ws = wb.active
 
 for d in range(0, 10):
     for i in range(1, 5):
-        ws.cell(row=i+1, column= d+1+1).value = prob_d_i(d, i)*100
+        value = prob_d_i(d, i)*100
+        print("value: ", value)
+        ws.cell(column=i+1, row= d+1+1).value = value
 
 # Save the file
 wb.save("0_Excels\Prob(D_i=d).xlsx")

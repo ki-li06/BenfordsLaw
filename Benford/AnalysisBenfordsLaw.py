@@ -37,7 +37,7 @@ def benfords_law_dataset(nums: list):
     actual_freq_percs = {digit: round(actual_freqs[digit] / total_count, 3) for digit in actual_freqs}
     
     # Return a dictionary with the expected and actual frequency percentages of the first significant digits
-    return {'expected': expected_freqs, 'actual': actual_freq_percs}
+    return {'index': range(1, 10),'expected': expected_freqs, 'actual': actual_freq_percs}
 
    
 def prob_n(n):
