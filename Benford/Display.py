@@ -39,7 +39,8 @@ def plot_dataframe(data_dict, title = "", y_label = "", x_label = "d"):
     plt.grid(zorder=0)
 
     for i in range(len(vals)):
-        values = vals[i]
+        values = list(vals[i].values())
+        #print("values: ", values)
         color = colors[i]
         bar = plt.bar(x=(ind + width*i), height=values, width=width, color=color, zorder=3)
         bars.append(bar)
@@ -49,7 +50,7 @@ def plot_dataframe(data_dict, title = "", y_label = "", x_label = "d"):
     ticks_x = ind + tick_move
     #print("ticks_x: ", ticks_x)
     plt.xticks(ticks_x, indexes) 
-    plt.legend( list(bars), list(names) ) 
+    plt.legend( (bars), list(names) ) 
     plt.show() 
     # END: yzj1z5v9jz7a
 

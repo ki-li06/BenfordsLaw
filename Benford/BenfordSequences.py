@@ -52,6 +52,8 @@ def get_primes(n):
                 break
         if is_prime:
             primes.append(num)
+            if n > 10**4 and len(primes) % (n/10) == 0:
+                print("found " + str(len(primes)) + " primes")
         num += 1
     return primes
 
