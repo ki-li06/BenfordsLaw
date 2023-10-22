@@ -160,3 +160,6 @@ cython_debug/
 #.idea/
 
 ExcelSheetGemeindeverzeichnis/filePath.txt
+
+# Visual Studio Code
+#.vscode/
