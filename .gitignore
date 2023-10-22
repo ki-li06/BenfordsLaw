@@ -162,4 +162,4 @@ cython_debug/
 ExcelSheetGemeindeverzeichnis/filePath.txt
 
 # Visual Studio Code
-#.vscode/
+.vscode/
