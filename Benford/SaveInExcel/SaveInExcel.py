@@ -1,6 +1,6 @@
 import math
 from openpyxl import Workbook
-from AnalysisBenfordsLaw import prob_d_i as prob_d_i
+from Benford.AnalysisBenfordsLaw import prob_d_i as prob_d_i
 
 wb = Workbook()
 

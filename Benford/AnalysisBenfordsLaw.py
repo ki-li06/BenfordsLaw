@@ -6,30 +6,33 @@ sys.path.append('GeneralMath')
 from SumSequence import get_as_digits
 
 
-def get_first_significant_digit(num):
+def get_first_significant_digits(num, amount = 1):
     # Convert the number to a string
     num_str = str(num)
+    num_str = num_str.replace('.', '') + "0" * amount
+
     
     # Loop through the string until we find a non-zero digit
-    for digit in num_str:
-        if digit != '0':
-            return int(digit)
-    
+    for i in range(len(num_str)):
+        if num_str[i] != '0':
+            return int(num_str[i: i + amount])    
     # If we haven't found a non-zero digit, return 0
     return 0
 
-def benfords_law_dataset(nums: list):
-    # Define the expected frequencies of the first significant digits according to Benford's Law
-    expected_freqs = {1: 0.301, 2: 0.176, 3: 0.125, 4: 0.097, 5: 0.079, 6: 0.067, 7: 0.058, 8: 0.051, 9: 0.046}
 
+def benfords_law_on_dataset(nums: list, digits: int = 1):
+    # Define the expected frequencies of the first significant digits according to Benford's Law
+    myrange = range(10**(digits-1), 10**digits)
+
+    expected_freqs = {digit: prob_n(digit) for digit in myrange}
     
 
     # Initialize a dictionary to count the actual frequencies of the first significant digits
-    actual_freqs = {digit: 0 for digit in range(1, 10)}
+    actual_freqs = {digit: 0 for digit in myrange}
     
     # Loop through the input list and count the actual frequency of each first significant digit
     for num in nums:
-        first_digit = get_first_significant_digit(num)
+        first_digit = get_first_significant_digits(num, digits)
         actual_freqs[first_digit] += 1
     
     # Normalize the actual frequencies to get the actual frequency percentages
@@ -37,11 +40,11 @@ def benfords_law_dataset(nums: list):
     actual_freq_percs = {digit: round(actual_freqs[digit] / total_count, 3) for digit in actual_freqs}
     
     # Return a dictionary with the expected and actual frequency percentages of the first significant digits
-    return {'index': range(1, 10),'expected': expected_freqs, 'actual': actual_freq_percs}
+    return {'index': myrange,'expected': expected_freqs, 'actual': actual_freq_percs}
 
    
 def prob_n(n):
-    #Returns the probabilty that a number will start with n/the digits in n
+    #Returns the probabilty that a number will start with n / the digits in n
     number = n
     if(type(n) != int):
         number = get_as_digits(n)

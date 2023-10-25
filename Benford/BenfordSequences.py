@@ -31,6 +31,16 @@ def collatz(n):
         sequence.append(n)
     return sequence
 
+def getCollatzLength(n):
+    length = 0
+    while n != 1:
+        if n % 2 == 0:
+            n = n // 2
+        else:
+            n = 3 * n + 1
+        length += 1
+    return length
+
 """ n_collatz = 1324354657687980
 
 coll = collatz(n_collatz)
