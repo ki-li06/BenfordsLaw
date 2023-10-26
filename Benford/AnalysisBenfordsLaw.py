@@ -17,12 +17,12 @@ def get_first_significant_digits(num, amount = 1):
         if num_str[i] != '0':
             return int(num_str[i: i + amount])    
     # If we haven't found a non-zero digit, return 0
-    return 0
+    return -1
 
 
 def benfords_law_on_dataset(nums: list, digits: int = 1):
     # Define the expected frequencies of the first significant digits according to Benford's Law
-    myrange = range(10**(digits-1), 10**digits)
+    myrange = {x for x in range(10**(digits-1), 10**digits)}
 
     expected_freqs = {digit: prob_n(digit) for digit in myrange}
     
@@ -37,7 +37,7 @@ def benfords_law_on_dataset(nums: list, digits: int = 1):
     
     # Normalize the actual frequencies to get the actual frequency percentages
     total_count = len(nums)
-    actual_freq_percs = {digit: round(actual_freqs[digit] / total_count, 3) for digit in actual_freqs}
+    actual_freq_percs = {digit: round(actual_freqs[digit] / total_count, 5) for digit in actual_freqs}
     
     # Return a dictionary with the expected and actual frequency percentages of the first significant digits
     return {'index': myrange,'expected': expected_freqs, 'actual': actual_freq_percs}

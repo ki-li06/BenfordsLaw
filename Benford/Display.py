@@ -4,9 +4,9 @@ import numpy as np
 import pandas as pd
 
 
-def print_as_dataframe(data_dict):
+def print_as_dataframe(data_dict: dict):
     """
-    Prints the data in the dictionary as a dataframe.
+    Prints the data in the dictionary as a pandas dataframe.
 
     Parameters:
     data_dict (dict): A dictionary with columns index and columns with other data.
@@ -14,7 +14,11 @@ def print_as_dataframe(data_dict):
     Returns:
     None
     """
-    df = pd.DataFrame(data_dict)
+    df = pd.DataFrame()
+    for key in data_dict.keys():
+        if key != 'index':
+            df[key] = pd.Series(data_dict[key])
+    df.index = data_dict['index']
     print(df)
 
 def plot_dataframe(data_dict, title = "", y_label = "", x_label = "d"):
