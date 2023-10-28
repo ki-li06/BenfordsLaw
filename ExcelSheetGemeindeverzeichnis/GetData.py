@@ -3,7 +3,7 @@ from Main import get_new_sheet
 
 sheet = get_new_sheet()
 
-def get_column_data(column):
+def get_column_data(column: str):
     encoder = {"ars": 1, "name": 2, "fläche": 3, "bev0": 4, "bev1": 5, "bev2": 6, "bev3": 7, "plz": 8, "koord0": 9, "koord1": 10}
     if type(column) == str:
         column_i = encoder[column]

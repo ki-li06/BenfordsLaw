@@ -17,14 +17,14 @@ def get_first_significant_digits(num, amount = 1):
         if num_str[i] != '0':
             return int(num_str[i: i + amount])    
     # If we haven't found a non-zero digit, return 0
-    return -1
+    return 0
 
 
 def benfords_law_on_dataset(nums: list, digits: int = 1):
-    # Define the expected frequencies of the first significant digits according to Benford's Law
+    # Define the theoretic frequencies of the first significant digits according to Benford's Law
     myrange = {x for x in range(10**(digits-1), 10**digits)}
 
-    expected_freqs = {digit: prob_n(digit) for digit in myrange}
+    theoretic_freqs = {digit: prob_n(digit) for digit in myrange}
     
 
     # Initialize a dictionary to count the actual frequencies of the first significant digits
@@ -33,16 +33,25 @@ def benfords_law_on_dataset(nums: list, digits: int = 1):
     # Loop through the input list and count the actual frequency of each first significant digit
     for num in nums:
         first_digit = get_first_significant_digits(num, digits)
-        actual_freqs[first_digit] += 1
+        if(first_digit != 0):
+            actual_freqs[first_digit] += 1
     
     # Normalize the actual frequencies to get the actual frequency percentages
     total_count = len(nums)
     actual_freq_percs = {digit: round(actual_freqs[digit] / total_count, 5) for digit in actual_freqs}
     
-    # Return a dictionary with the expected and actual frequency percentages of the first significant digits
-    return {'index': myrange,'expected': expected_freqs, 'actual': actual_freq_percs}
+    # Return a dictionary with the theoretic and actual frequency percentages of the first significant digits
+    return {'index': myrange,'theoretic': theoretic_freqs, 'actual': actual_freq_percs}
 
-   
+def get_biggest_difference(dict: dict):
+    #Returns the highest difference between the exp and theoretic values
+    highest_dif = 0
+    for i in dict['index']:
+        dif = abs(dict['actual'][i] - dict['theoretic'][i])
+        if(dif > highest_dif):
+            highest_dif = dif
+    return highest_dif
+
 def prob_n(n):
     #Returns the probabilty that a number will start with n / the digits in n
     number = n
