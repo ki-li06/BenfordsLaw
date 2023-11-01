@@ -8,7 +8,7 @@ sys.path.append('Benford')
 from AnalysisBenfordsLaw import benfords_law_on_dataset, get_biggest_difference
 from Display import plot_dataframe, print_as_dataframe
 
-mylist = get_column_data("fläche")
+mylist = get_column_data("plz")
 print("first 10 elements:", str(mylist[:10]))
 benford = benfords_law_on_dataset(mylist)
 
@@ -24,7 +24,7 @@ worksheet = workbook.active
 # Write the headers for the table
 worksheet['A1'] = 'd'
 worksheet['B1'] = 'P(D₁=d)'
-worksheet['C1'] = 'Flächen'
+worksheet['C1'] = 'PLZen'
 
 # Loop through the range of values for i and write the corresponding Fibonacci(i) value in the second column
 for i in range(1, 10):
@@ -37,6 +37,6 @@ worksheet.cell(row=12, column=3).value = 100*highest_dif
 
 
 
-workbook.save('0_Excels\Diagrams\GVZ\Flaechen.xlsx')
+workbook.save('0_Excels\Diagrams\GVZ\PLZen.xlsx')
 
 
