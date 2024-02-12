@@ -1,6 +1,6 @@
 # BenfordsLaw
 I developed this code for my W-Seminararbeit about the [Benford's Law](https://en.wikipedia.org/wiki/Benford%27s_law).
-It analyzes the Gemeindeverzeichnis (like a list of all countys in Germany, download the latest Excel-File from [here](https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/_inhalt.html#101366)) on its conformity to Benford's Law.
+It analyzes the Gemeindeverzeichnis (like a list of all countys in Germany, you can download the latest Excel-File from [here](https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/_inhalt.html#101366)) on its conformity to Benford's Law.
 To start this code, you have to place first follwing files in directorys or create such directories.
 
 1) ExcelSheets
