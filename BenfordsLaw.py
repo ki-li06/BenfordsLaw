@@ -1,28 +1,21 @@
 from math import log10
 
-import sys
-
-sys.path.append('GeneralMath')
-from SumSequence import get_as_digits
-
-
-def get_first_significant_digits(num, amount = 1):
+def get_first_significant_digit(num):
     # Convert the number to a string
-    num_str = str(num)
-    num_str = num_str.replace('.', '') + "0" * amount
+    num_str = str(num).replace('.', '')
 
     
     # Loop through the string until we find a non-zero digit
     for i in range(len(num_str)):
         if num_str[i] != '0':
-            return int(num_str[i: i + amount])    
+            return int(num_str[i])    
     # If we haven't found a non-zero digit, return 0
     return 0
 
 
-def benfords_law_on_dataset(nums: list, digits: int = 1):
+def benfords_law_on_list(nums: list):
     # Define the theoretic frequencies of the first significant digits according to Benford's Law
-    myrange = {x for x in range(10**(digits-1), 10**digits)}
+    myrange = {x for x in range(1, 10)}
 
     theoretic_freqs = {digit: prob_n(digit) for digit in myrange}
     
@@ -32,7 +25,7 @@ def benfords_law_on_dataset(nums: list, digits: int = 1):
     
     # Loop through the input list and count the actual frequency of each first significant digit
     for num in nums:
-        first_digit = get_first_significant_digits(num, digits)
+        first_digit = get_first_significant_digit(num)
         if(first_digit != 0):
             actual_freqs[first_digit] += 1
     
@@ -52,11 +45,17 @@ def get_biggest_difference(dict: dict):
             highest_dif = dif
     return highest_dif
 
+def get_as_number(list_digits):
+    """
+    Converts a list of digits to a number.
+    """
+    return sum([list_digits[i] * 10 ** (len(list_digits) - i - 1) for i in range(len(list_digits))])
+
 def prob_n(n):
     #Returns the probabilty that a number will start with n / the digits in n
     number = n
     if(type(n) != int):
-        number = get_as_digits(n)
+        number = get_as_number(n)
     if(number == 0):
         return 0
     return log10(1+(1/(number)))
@@ -70,10 +69,6 @@ def prob_d_i(d: int, index: int):
     listnumbers = [i*10 + d for i in range(10**(index-1), 10**index)]
     #print("listnumbers:", listnumbers)
 
-    sum = 0
-    for i in listnumbers:
-        n = d + i*10
-        sum += prob_n(i)
-    return sum
+    return sum({prob_n(n) for n in listnumbers})
 
-print("AnalysisBenfordsLaw.py loaded")
+print("BenfordsLaw.py loaded")

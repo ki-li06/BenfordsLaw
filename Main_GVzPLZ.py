@@ -1,18 +1,11 @@
 import openpyxl
-from openpyxl.utils.dataframe import dataframe_to_rows
 
-import sys
-sys.path.append('ExcelSheetGemeindeverzeichnis')
-from GetData import get_column_data
-sys.path.append('Benford')
-from AnalysisBenfordsLaw import benfords_law_on_dataset, get_biggest_difference
-from Display import plot_dataframe, print_as_dataframe
+from GVzExcelAPI import get_column_data
+from BenfordsLaw import benfords_law_on_list, get_biggest_difference
 
 mylist = get_column_data("plz")
 print("first 10 elements:", str(mylist[:10]))
-benford = benfords_law_on_dataset(mylist)
-
-print_as_dataframe(benford)
+benford = benfords_law_on_list(mylist)
 
 highest_dif = get_biggest_difference(benford)
 print("highest difference:", highest_dif)
@@ -36,7 +29,5 @@ worksheet.cell(row=12, column=1).value = "Δ"
 worksheet.cell(row=12, column=3).value = 100*highest_dif
 
 
-
-workbook.save('0_Excels\Diagrams\GVZ\PLZen.xlsx')
-
+workbook.save("ExcelSheets/Output/GVZ/PLZen.xlsx")
 

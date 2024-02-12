@@ -1,40 +1,26 @@
-import os
-import pandas as pd
-from openpyxl import load_workbook
 import openpyxl
-from Main import get_orig_sheet, get_new_sheet, save_workbook
-import time
+from openpyxl import load_workbook
 
-# Get workbook sheet object
-sheet_orig = get_orig_sheet()
-sheet_new = get_new_sheet()
- 
-# Cell objects also have a row, column, 
-# and coordinate attributes that provide
-# location information for the cell.
- 
-# Note: The first row or 
-# column integer is 1, not 0.
- 
+wb_orig = load_workbook(filename = 'ExcelSheets/Input/Gemeindeverzeichnis - Vorlage.xlsx')
 
+sheet_orig = wb_orig.worksheets[1]
+sheet_new = wb_orig["GemeindeverzeichnisGekürzt"]
+ 
 row = 7
 cell_row = sheet_orig[row]
 cell_satzart = cell_row[0]
-#print("satzart:", cell_satzart.value)
-#print("coordinate:", cell_satzart.coordinate)
 elements = 0
 
 while cell_satzart.value != None:
-#while elements < 10:
     SATZART_GEMEINDE = 60
-    #print("satzart = " + str(cell_satzart.value) + " (type=" + str(type(cell_satzart.value)) + ")")
     if int(cell_satzart.value) == SATZART_GEMEINDE:
         values = expected_freqs = {i: None for i in range(1, 16)}
         for i in range(1, 16):
-            values[i] = cell_row[i].value
-        #cell_bev_ins = cell_row[9]
-        for i in range(2, 7):
-            values[i] = str(values[i])
+            if(i in range(2, 7)):
+                values[i] = str(cell_row[i].value)
+            else:
+                values[i] = cell_row[i].value
+
         ars = values[2] + values[3] + values[4] + values[5] + values[6]
         name = values[7]
         fläche = values[8]
@@ -44,8 +30,6 @@ while cell_satzart.value != None:
             koord = None, None
         else:            
             koord = float(str(values[14]).replace(",", ".")), float(str(values[15]).replace(",", "."))
-        #print("row=" +  str(row) + " => " + str(ars) + " " + str(name) + " (" + str(fläche) + " km²) " + str(bev) + " " + str(plz) + " " + str(koord))
-        #print("types:", type(ars), type(name), type(fläche), [type(bev[i]) for i in range(0, len(bev))], type(plz), type(koord[0]), type(koord[1]))
         print("row=" + str(row) + " => " + str(name))
 
         sheet_new.cell(column=1, row = elements + 7).value = ars
@@ -62,16 +46,13 @@ while cell_satzart.value != None:
         sheet_new.cell(column=10, row = elements + 7).alignment = openpyxl.styles.Alignment(horizontal='right')
 
         elements = elements + 1
-    #time.sleep(3)  # add a 20 millisecond delay
     row = row + 1
-    #print("row:", row)
     cell_row = sheet_orig[row][:20]
     cell_satzart = cell_row[0]
 
 print("elements:", elements)
-#overall there are 10981 elements
+#overall there should be 10981 elements
 
-# Save the workbook
-save_workbook()
+wb_orig.save("ExcelSheets/Input/Gemeindeverzeichnis - Gekürzt.xlsx")
 
 print("finished copying sheets")

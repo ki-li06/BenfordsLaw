@@ -1,27 +1,19 @@
 import openpyxl
-from openpyxl.utils.dataframe import dataframe_to_rows
-from openpyxl.styles import Alignment
+from BenfordsLaw import benfords_law_on_list, get_biggest_difference
+from GVzExcelAPI import get_column_data
 
-import sys
-sys.path.append('ExcelSheetGemeindeverzeichnis')
-from GetData import get_column_data
-sys.path.append('Benford')
-from AnalysisBenfordsLaw import benfords_law_on_dataset, get_biggest_difference
-from Display import plot_dataframe, print_as_dataframe
-
-def analyse_bev_column(column_name, meaning: str):
-    mylist = get_column_data(column_name)
-    print("first 10 elements:", str(mylist[:10]))
-    benford = benfords_law_on_dataset(mylist)
+def analyse_column(column_name, meaning: str):
     print("-"*50)
     print(meaning)
-    print_as_dataframe(benford)
+    mylist = get_column_data(column_name)
+    print("first 10 elements:", str(mylist[:10]))
+    benford = benfords_law_on_list(mylist)
     highest_dif = get_biggest_difference(benford)
     print("highest difference:", highest_dif)
     return (benford, highest_dif)
 
-benford_koord_länge = analyse_bev_column("koord0", "Längengrad")
-benford_koord_breite = analyse_bev_column("koord1", "Breitengrad")
+benford_koord_länge = analyse_column("koord0", "Längengrad")
+benford_koord_breite = analyse_column("koord1", "Breitengrad")
 
 # Create a new workbook and select the active worksheet
 workbook = openpyxl.Workbook()
@@ -54,6 +46,6 @@ worksheet.cell(row=16, column=1).value = "Minimal"
 worksheet.cell(row=16, column=2).value = min(langengrade)
 worksheet.cell(row=16, column=3).value = min(breitengrad)
 
-workbook.save('0_Excels\Diagrams\GVZ\Koordinaten.xlsx')
 
+workbook.save("ExcelSheets/Output/GVZ/Koordinaten.xlsx")
 
