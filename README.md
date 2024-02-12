@@ -1,5 +1,5 @@
 # BenfordsLaw
-This code was developed for my W-Seminararbeit about the Benford's Law (https://en.wikipedia.org/wiki/Benford%27s_law).
+I devloped this code for my W-Seminararbeit about the Benford's Law (https://en.wikipedia.org/wiki/Benford%27s_law).
 It analyzes the Gemeindeverzeichnis (like a list of all countys in Germany, download the latest Excel-File from https://www.destatis.de/DE/Themen/Laender-Regionen/Regionales/Gemeindeverzeichnis/_inhalt.html#101366) on its conformity to Benford's Law.
 To start this code, you have place first follwing files in directorys or create such directories.
 
